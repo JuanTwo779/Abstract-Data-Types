@@ -80,8 +80,20 @@ public class BinaryTree {
         if (current != null)
         {
             System.out.println(current); //invoke toString
-            preOrderTraverseTree(current.leftChild); //traverse left node if current is not empty
+            preOrderTraverseTree(current.leftChild);
             preOrderTraverseTree(current.rightChild);
+        }
+    }
+
+    //postOrderTraverse
+    //left children --> right children --> root
+    public void postOrderTraverseTree(Node current)
+    {
+        if (current != null)
+        {
+            postOrderTraverseTree(current.leftChild);
+            postOrderTraverseTree(current.rightChild);
+            System.out.println(current); //invoke toString
         }
     }
 
@@ -102,6 +114,10 @@ public class BinaryTree {
         System.out.println("--------------------------------");
 
         tree.preOrderTraverseTree(tree.root);
+
+        System.out.println("--------------------------------");
+
+        tree.postOrderTraverseTree(tree.root);
 
     }
 
