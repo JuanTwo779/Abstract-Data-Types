@@ -97,6 +97,7 @@ public class BinaryTree {
         }
     }
 
+    //method to find node with a certain value
     public Node findNode(int inputData)
     {
         Node current = root;
@@ -118,6 +119,134 @@ public class BinaryTree {
             }
         }
         return current;
+    }
+
+    //Method to delete node
+    //reassigning nodes and their children + traversing the tree
+    public boolean remove(int inputData)
+    {
+        Node current = root;
+        Node parent = root;
+
+        boolean isItALeftChild = true;
+
+        while(current.data != inputData)
+        {
+            parent = current;
+
+            if(inputData < current.data)
+            {
+                isItALeftChild = true;
+
+                current = current.leftChild;
+            }
+            else
+            {
+                isItALeftChild = false;
+
+                current = current.rightChild;
+            }
+
+            if (current == null)
+            {
+                return false;
+            }
+        }
+
+        if (current.leftChild == null && current.rightChild == null)
+        {
+            if(current == root)
+            {
+                root = null;
+            }
+            else if(isItALeftChild)
+            {
+                parent.leftChild = null;
+            }
+            else
+            {
+                parent.rightChild = null;
+            }
+        }
+
+        else if(current.rightChild == null)
+        {
+            if (current == root)
+            {
+                root = current.leftChild;
+            }
+            else if (isItALeftChild)
+            {
+                parent.leftChild = current.leftChild;
+            }
+            else
+            {
+                parent.rightChild = current.leftChild;
+            }
+        }
+
+        else if(current.leftChild == null)
+        {
+            if (current == root)
+            {
+                root = current.rightChild;
+            }
+            else if (isItALeftChild)
+            {
+                parent.leftChild = current.rightChild;
+            }
+            else
+            {
+                parent.rightChild = current.rightChild;
+            }
+        }
+
+        else
+        {
+            Node replacement = getReplacement(current);
+
+            if(current == root)
+            {
+                root = replacement;
+            }
+            else if (isItALeftChild)
+            {
+                parent.leftChild = replacement;
+            }
+            else
+            {
+                parent.rightChild = replacement;
+            }
+
+            replacement.leftChild = current.leftChild;
+        }
+
+        return true;
+    }
+
+    public Node getReplacement(Node replaceNode)
+    {
+        Node replacementParent = replaceNode;
+        Node replacement = replaceNode;
+
+        Node current = replaceNode.rightChild;
+
+        while (current != null)
+        {
+            replacementParent = replacement;
+
+            replacement = current;
+
+            current = current.leftChild;
+        }
+
+        if (replacement != replaceNode.rightChild)
+        {
+            replacementParent.leftChild = replacement.rightChild;
+            replacement.rightChild = replaceNode.rightChild;
+        }
+
+        return replacement;
     }
 
     public static void main(String[] args)
