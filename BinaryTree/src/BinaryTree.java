@@ -97,6 +97,29 @@ public class BinaryTree {
         }
     }
 
+    public Node findNode(int inputData)
+    {
+        Node current = root;
+
+        while (current.data != inputData)
+        {
+            if(inputData < current.data)
+            {
+                current = current.leftChild;
+            }
+            else
+            {
+                current = current.rightChild;
+            }
+
+            if (current == null)
+            {
+                return null;
+            }
+        }
+        return current;
+    }
+
     public static void main(String[] args)
     {
         BinaryTree tree = new BinaryTree();
@@ -118,6 +141,11 @@ public class BinaryTree {
         System.out.println("--------------------------------");
 
         tree.postOrderTraverseTree(tree.root);
+
+        System.out.println("--------------------------------");
+
+        System.out.println("Search for 75");
+        System.out.println(tree.findNode(75));
 
     }
 
