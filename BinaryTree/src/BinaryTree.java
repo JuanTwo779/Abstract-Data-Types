@@ -81,7 +81,7 @@ public class BinaryTree {
         {
             System.out.println(current); //invoke toString
             preOrderTraverseTree(current.leftChild); //traverse left node if current is not empty
-            inOrderTraverseTree(current.rightChild);
+            preOrderTraverseTree(current.rightChild);
         }
     }
 
