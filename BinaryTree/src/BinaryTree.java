@@ -10,6 +10,11 @@ public class BinaryTree {
             this.data = data;
         }
 
+        public String toString()
+        {
+            return "Node data: " + data;
+        }
+
     }
     private Node root; //root node of tree
 
@@ -30,7 +35,7 @@ public class BinaryTree {
 
             while(true) //loops until we find a null for left or right child
             {
-                parent = current; //set parent node as the root
+                parent = current; //set parent node as the current
 
                 if(data < current.data) //if input data is less than current/root data,
                 {
@@ -57,6 +62,32 @@ public class BinaryTree {
     }
 
     //in order traversal
+    //goes for smallest value to highest (left side first; ascending order)
+    public void inOrderTraverseTree(Node current)
+    {
+        if (current != null)
+        {
+            inOrderTraverseTree(current.leftChild); //traverse left node if current is not empty
+            System.out.println(current); //invoke toString
+            inOrderTraverseTree(current.rightChild);
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        BinaryTree tree = new BinaryTree();
+
+        //add method assigns root
+        tree.addNode(50);
+        tree.addNode(15);
+        tree.addNode(25);
+        tree.addNode(30);
+        tree.addNode(75);
+        tree.addNode(85);
+
+        tree.inOrderTraverseTree(tree.root);
+
+    }
 
 
 }
