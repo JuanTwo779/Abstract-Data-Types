@@ -73,19 +73,35 @@ public class BinaryTree {
         }
     }
 
+    //preOrderTraverse
+    //root --> left side --> right side
+    public void preOrderTraverseTree(Node current)
+    {
+        if (current != null)
+        {
+            System.out.println(current); //invoke toString
+            preOrderTraverseTree(current.leftChild); //traverse left node if current is not empty
+            inOrderTraverseTree(current.rightChild);
+        }
+    }
+
     public static void main(String[] args)
     {
         BinaryTree tree = new BinaryTree();
 
         //add method assigns root
         tree.addNode(50);
-        tree.addNode(15);
         tree.addNode(25);
+        tree.addNode(15);
         tree.addNode(30);
         tree.addNode(75);
         tree.addNode(85);
 
         tree.inOrderTraverseTree(tree.root);
+
+        System.out.println("--------------------------------");
+
+        tree.preOrderTraverseTree(tree.root);
 
     }
 
