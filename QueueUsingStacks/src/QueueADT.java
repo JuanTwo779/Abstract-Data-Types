@@ -1,11 +1,5 @@
 public class QueueADT
 {
-    //enqueue()
-    //dequeue() - remove and return value from front of queue
-    //queueFront() - return value at front
-    //isEmpty()
-    //print()
-
     StackADT pushStack = new StackADT();
     StackADT popStack = new StackADT();
 
