@@ -3,23 +3,20 @@ public class StackADT
     private Node top;
     public int size;
 
-    // node class (link)
+    // inner node class
     public class Node
     {
-        private String data;
+        private char data;
         private Node next; //single linked list
 
-        public Node(String data)
+        public Node(char data)
         {
             this.data = data;
         }
     }
-    // node class (link)
 
-    /*
-     * Method for adding new nodes to the stack
-     * */
-    public void push(String data)
+    //Adds new node to the stack
+    public void push(char data)
     {
         Node newNode = new Node(data);
         newNode.next = top; //assigns the old top to the new nodes address
@@ -27,60 +24,60 @@ public class StackADT
         size++;
     }
 
-    /*
-     * Method for removing and returning top node
-     * */
-    public String pop()
+    //Removes top of stack node and returns its data
+    public char pop()
     {
-        String temp = null;
-        try //empty stack exception
+        char temp = ' ';
+        if(!isEmpty()) //checks that there is something to pop
         {
-            if(!isEmpty()) //checks that there is something to pop
-            {
-                temp = top.data; //hold data of top
-                top = top.next; //set new top
-                size--;
-            }
+            temp = top.data; //hold data of top
+            top = top.next; //set new top
+            size--;
         }
-        catch(Exception e)
+        else
         {
             System.out.println("Stack is empty");
+            return 0;
         }
         return temp;
     }
 
-    /*
-     * Method for returning the data of the top node (peek)
-     * */
-    public String peek()
+    //Returns the data of the top node
+    public char stackTop()
     {
         if (top == null) //checks if stack is empty
+        {
             System.out.println("Stack is empty");
-        return top.data;
+        }
+        else
+        {
+            return top.data;
+        }
+        return 0;
     }
 
-    /*
-     * Method to check if the stack is empty
-     * */
+    //Checks if stack is empty
     public boolean isEmpty()
     {
-        return top == null; //true if top is null
+        return top == null;
     }
 
-    /*
-     * Method to print out the data values of all nodes in the stack
-     * */
+    //Prints out the data values of all nodes in the stack
     public void print()
     {
         Node current = top; //start from the top
+        if (current == null)
+        {
+            System.out.println("Stack is empty");
+            return;
+        }
 
         while(current != null) //loop to move along the stack
         {
             System.out.print(current.data + " ");
-
             current = current.next; //assign current to the next node
         }
-        //System.out.println(" ");
-    }
-}
 
+    }
+
+}
