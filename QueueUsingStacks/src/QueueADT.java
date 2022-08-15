@@ -3,81 +3,99 @@ public class QueueADT
     StackADT pushStack = new StackADT();
     StackADT popStack = new StackADT();
 
-    //enqueue() - add value to back of queue
-    public void enqueue(String data)
+    //Adds value to back of queue
+    public void enqueue(char data)
     {
         pushStack.push(data); //we queue elements into the pushStack first
     }
 
+    //Moves all characters in the pushStack to the popStack
     private void movePushToPop()
     {
         int size = pushStack.size;
         for (int i = 0; i < size; i++)
         {
-            String top = pushStack.pop();
+            char top = pushStack.pop();
             popStack.push(top);
         }
     }
 
-    //dequeue() - remove value at the front and return it
-    public String dequeue()
+    //Removes value at the front and returns it
+    public char dequeue()
     {
-        if(popStack.isEmpty())
+        if (pushStack.isEmpty() && popStack.isEmpty())
+        {
+            System.out.println("Queue is empty");
+            return 0;
+        }
+        else if(popStack.isEmpty())
         {
             movePushToPop(); //move elements from push stack to popStack
         }
         return popStack.pop(); //pop from popStack to get "front" value
     }
 
-    //queueFront() - return value at front
-    public String queueFront()
+    //Returns value at the front
+    public char queueFront()
     {
-        if(popStack.isEmpty())
+        if (pushStack.isEmpty() && popStack.isEmpty())
+        {
+            System.out.println("Queue is empty");
+            return 0;
+        }
+        else if(popStack.isEmpty())
         {
             movePushToPop(); //move elements from push stack to popStack
         }
-        return popStack.peek();
+        return popStack.stackTop();
     }
 
-    //isEmpty()
+    //Checks if queue is empty
     public boolean empty()
     {
+        //if at least one is not empty, false is returned
         return pushStack.isEmpty() && popStack.isEmpty();
     }
 
-    //print
+    //Prints out all the values stored in the queue
     public void print()
     {
-        if(popStack.isEmpty())
+        if (pushStack.isEmpty() && popStack.isEmpty())
         {
-            movePushToPop(); //move elements from push stack to popStack
-        }
-        popStack.print();
-
-        StackADT temp = new StackADT();
-        if (pushStack.isEmpty())
-        {
+            System.out.println("Queue is empty");
             return;
         }
-        else //prints the push stack in reverse
+        else if(popStack.isEmpty() && !pushStack.isEmpty())
+        {
+            movePushToPop(); //move elements from push stack to popStack
+            popStack.print();
+        }
+
+        StackADT temp = new StackADT();
+        if (!pushStack.isEmpty() && !popStack.isEmpty())
         {
             //stores pushStack elements in reverse to a temp stack
-            int size = pushStack.size;
-            for (int i = 0; i < size; i++)
+            while (!pushStack.isEmpty())
             {
-                String top = pushStack.pop();
+                int size = pushStack.size;
+                for (int i = 0; i < size; i++) {
+                }
+                char top = pushStack.pop();
                 temp.push(top);
             }
-            temp.print();
 
-            //stores elements back into push stack is correct order
+            if (!temp.isEmpty())
+            {
+                temp.print();
+            }
+
+            //stores elements back into push stack in correct order
             int tempSize = temp.size;
             for (int i = 0; i < tempSize; i++)
             {
-                String tempTop = temp.pop();
+                char tempTop = temp.pop();
                 pushStack.push(tempTop);
             }
         }
     }
 }
-
